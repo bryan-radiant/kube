@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1beta1
+id: wpfrontend
+# The port that this service should serve on.
+port: 80
+selector:
+  name: wpfrontend
+# The port on each pod to connect to, can be a name
+# (e.g. 'www') or a number (e.g. 80).
+containerPort: 80
+labels:
+  name: wpfrontend
+createExternalLoadBalancer: true

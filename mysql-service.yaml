@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1beta1
+id: mysql
+# The port that this service should serve on.
+port: 3306
+selector:
+  name: mysql
+# The port on each pod to connect to, can be a name
+# (e.g. 'www') or a number (e.g. 80).
+containerPort: 3306
+labels:
+  name: mysql
