@@ -1,30 +1,30 @@
 kind: Pod
-apiVersion: v1beta1
+apiVersion: v1beta3
+#metadata:
+  #name: tbfe
+  #labels: 
+    #name: tbfe
+#spec:
+  #ports:
+    #- port: 80
+    #targetPort: 8080
+    #protocol: TCP
+  #selector:
+    #name: tbfe
+
 id: tbfe
 desiredState:
   manifest:
     version: v1beta1
-    id: mysql
+    id: tbfe
     containers:
-      - name: mysql
-        image: mysql
+      - name: tbfe
+        image: gcr.io/radiant-cloud/tbfe
         env:
           - name: MYSQL_ROOT_PASSWORD
-            # Change this password!
             value: yourpassword
         cpu: 100
         ports:
-          - containerPort: 3306
-        volumeMounts:
-            # This name must match the volumes.name below.
-          - name: mysql-persistent-storage
-            mountPath: /var/lib/mysql
-    volumes:
-      - name: mysql-persistent-storage
-        source:
-          persistentDisk:
-            # This disk must already exist.
-            pdName: mysql-disk
-            fsType: ext4
+          - containerPort: 80
 labels:
-  name: mysql
+  name: tbfe

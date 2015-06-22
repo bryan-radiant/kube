@@ -1,0 +1,7 @@
+#!/bin/bash
+
+NETWORK_NAME="dev"
+
+gcloud alpha container clusters create dev-tbfe --num-nodes 2 --network ${NETWORK_NAME}
+#gcloud alpha container clusters create dev-tbmatch --num-nodes 2 --network ${NETWORK_NAME}
+

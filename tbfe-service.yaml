@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1beta3
+id: tbfe
+
+metadata: 
+  name: tbfe
+  labels: 
+    name: tbfe
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    name: tbfe
+

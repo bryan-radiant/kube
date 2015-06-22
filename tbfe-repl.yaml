@@ -1,0 +1,36 @@
+kind: ReplicationController
+apiVersion: v1beta3
+
+metadata: 
+  name: tbfe
+  labels:
+    name: tbfe
+
+spec:
+  replicas: 1
+  selector:
+    name: tbfe
+  template:
+    metadata:
+      labels:
+        name: tbfe
+    spec:
+      containers:
+        - name: tbfe
+          image: gcr.io/radiant-cloud/tbfe
+          command: [ "/opt/tbfe/bin/tbfe", 
+            "--config", "/opt/tbfe/etc/tbfe.cfg",
+            "--log_dir", "/opt/logs/tbfe/",
+            "--log_stderr", "false" 
+          ]
+          volumeMounts:
+            - name: secret-volume
+              mountPath: /opt/tbfe/etc/secrets
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: dev-tbfe-secrets
+

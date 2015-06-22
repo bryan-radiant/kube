@@ -18,4 +18,40 @@ NAME         ZONE           CLUSTER_API_VERSION  MASTER_IP        MACHINE_TYPE  
 dev-tbmatch  us-central1-a  0.18.2               130.211.141.229  n1-standard-1, container-vm-v20150505  2      running
 ```
 
-# gcloud compute disks create --size 200GB mysql-disk
+Create the pod
+```
+kubectl create -f tbfe.yaml
+```
+
+Create the service
+```
+kubectl create -f tbfe-service.yaml
+```
+
+# Creating disks
+
+```
+gcloud compute disks create --size 200GB mysql-disk
+```
+
+# Creating emailrelay image
+
+Build the image from the ops repo.
+```
+make dockimg-build-emailrelay
+```
+
+Tag the image.
+```
+docker tag localhost:5000/emailrelay gcr.io/radiant-cloud/emailrelay
+```
+
+*Optional*: You may need to install gcloud preview, this will kick off the install process for you:
+```
+cloud preview docker
+```
+
+Push the image up to the repo.
+```
+gcloud preview docker push gcr.io/radiant-cloud/emailrelay
+```

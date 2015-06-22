@@ -1,0 +1,35 @@
+#!/bin/bash -f
+
+## Search by instance ID
+#instance_name="stage-tbmatch-7wyj"
+#instance_zone="us-central1-a"
+
+#instance_name="stage-tbmatch-9fkl"
+#instance_zone="us-central1-c"
+
+#instance_name="stage-portal-p9ox"
+#instance_name="prod-portal-1miz"
+#instance_zone="us-central1-c"
+
+#instance_name="prod-tbmatch-4lgm"
+#instance_zone="us-central1-f"
+
+#instance_id=$(gcloud compute instances describe ${instance_name} --zone ${instance_zone} --format json|jq ".id"|sed 's/"//g')
+
+## Query TBMatch
+#query="select textPayload, structPayload.message from devlogs.tbmatch_log_20150612 where metadata.labels.key = 'compute.googleapis.com/resource_id' and metadata.labels.value='${instance_id}' limit 100"
+#query="select textPayload from devlogs.tbmatch_log_20150612 where metadata.labels.key = 'compute.googleapis.com/resource_id' and metadata.labels.value='${instance_id}' and textPayload is not NULL limit 100"
+
+## Query Portal
+#query="select textPayload from devlogs.portal_log_20150612 where metadata.labels.key = 'compute.googleapis.com/resource_id' and metadata.labels.value='${instance_id}' limit 10"
+#query="select structPayload.message from devlogs.portal_log_20150612 limit 10"
+
+## Query Redis
+#query="select textPayload, structPayload.message from devlogs.redis_log_20150612 LIMIT 10"
+
+## Query Postgresql
+query="select * from devlogs.postgresql_20150612 LIMIT 10"
+
+echo ${query}
+bq query ${query}
+
